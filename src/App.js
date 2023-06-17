@@ -91,7 +91,7 @@ function App() {
       />
       <p className="characterCount">{(topPrompt.length + prompt.length)} / 4096 characters</p>
       <button onClick={handleGenerate} className={darkMode ? "genButtonDark" : "genButton"}>{buttonText}</button>
-      <button className={darkMode ? "discordButtonDark" : "discordButton"} onClick={() => window.open('https://discord.gg/your-discord-invite-link', '_blank')}>
+      <button className={darkMode ? "discordButtonDark" : "discordButton"} onClick={() => window.open('https://discord.gg/aichat', '_blank')}>
         <FontAwesomeIcon icon={faDiscord} size="8x" color={'#ffffff'} /> {/* Adjust size here */}
       </button>
     </div>
