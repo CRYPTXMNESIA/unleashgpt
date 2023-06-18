@@ -76,6 +76,7 @@ function App() {
             <option value="METHBAKE">Methbake</option>
             <option value="CONSPIRACYGPT">ConspiracyGPT</option>
             <option value="MONGO TOM">Mongo Tom</option>
+            <option value="RIKA">Rika</option>
         </select>
       </div>
       <textarea 
