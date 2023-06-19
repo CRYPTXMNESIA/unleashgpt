@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 * {
   outline: none;
   perspective: 1000px;
   opacity: 0; /* Ensure elements are initially hidden */
   animation: fadeInSlideUp 1.2s forwards;
+  font-family: 'Open Sans', sans-serif;
 }
 
 @keyframes fadeInSlideUp {
@@ -27,6 +30,7 @@ body, html {
   align-items: center;
   justify-content: center;
   height: 95vh;
+  max-width: 100%;
   transition: all 0.25s linear;
 }
 
@@ -46,7 +50,7 @@ body, html {
 .selectDark {
   margin: 10px 0;
   padding: 10px;
-  font-size: 16px;
+  font-size: 15px;
   transition: all 0.25s linear;
   border-radius: 8px;
   border: none;
@@ -75,6 +79,8 @@ body, html {
 .selectDark {
   width: 160px;
   font-size: 14px;
+  width: 100% !important;
+  text-align: center;
 }
 
 .header {
@@ -101,6 +107,18 @@ body, html {
   cursor: pointer;
 }
 
+.saveButton {
+  transition: all 0.10s linear;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  padding: 5px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #444;
+  color: white;
+}
+
 .genButton:active {
   background-color: #dfdfdf;
 }
@@ -125,4 +143,60 @@ body, html {
   outline: none;
   border: none;
   background-color: transparent;
+}
+
+.savedPromptsList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.savedPromptsList > li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.saveMenu {
+  max-width: 35px;
+  max-height: 35px;
+  min-width: 35px;
+  min-height: 35px;
+  font-size: 23px;
+  color: white;
+  background-color: #222;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.savedPromptItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.savedPromptInput {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #222;
+  color: white;
+}
+
+.savedPromptButton {
+  margin-left: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #222;
+  color: white;
+  cursor: pointer;
 }
