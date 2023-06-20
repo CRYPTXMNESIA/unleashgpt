@@ -68,13 +68,18 @@ function App() {
     }, 2000);
   };
 
+  const savePrompts = (newPrompts) => {
+    setSavedPrompts(newPrompts);
+    localStorage.setItem("savedPrompts", JSON.stringify(newPrompts));
+  };
+
   const addSavedPrompt = (name, topPrompt, prompt) => {
     const newPrompt = { name, topPrompt, prompt };
-    setSavedPrompts(prevPrompts => [...prevPrompts, newPrompt]);
+    savePrompts(prevPrompts => [...prevPrompts, newPrompt]);
   };
   
   const deleteSavedPrompt = index => {
-    setSavedPrompts(prevPrompts => {
+    savePrompts(prevPrompts => {
       const newSavedPrompts = [...prevPrompts];
       newSavedPrompts.splice(index, 1);
       return newSavedPrompts;
