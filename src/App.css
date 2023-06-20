@@ -108,7 +108,7 @@ body, html {
 }
 
 .saveButton {
-  transition: all 0.25s linear;
+  transition: all 0.10s linear;
   border-radius: 8px;
   border: none;
   font-size: 13px;
@@ -173,7 +173,6 @@ body, html {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.25s linear;
 }
 
 .savedPromptItem {

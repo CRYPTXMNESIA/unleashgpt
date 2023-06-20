@@ -38,6 +38,11 @@ function App() {
     textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
   }, []);
 
+  useEffect(() => {
+    // Save saved prompts to local storage whenever they change
+    localStorage.setItem("savedPrompts", JSON.stringify(savedPrompts));
+  }, [savedPrompts]);  // Add this line
+
   const [savedPrompts, setSavedPrompts] = useState(() => {
     // Load saved prompts from local storage when initializing state
     const savedData = localStorage.getItem("savedPrompts");
@@ -102,7 +107,7 @@ function App() {
             <option value="POLITICALGPT">PoliticalGPT</option>
             <option value="METHBAKE">Methbake</option>
             <option value="CONSPIRACYGPT">ConspiracyGPT</option>
-            <option value="MONGOTOM">Mongo Tom</option>
+            <option value="MONGO TOM">Mongo Tom</option>
             <option value="RIKA">Rika</option>
           </select>
         </div>
