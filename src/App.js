@@ -75,16 +75,22 @@ function App() {
 
   const addSavedPrompt = (name, topPrompt, prompt) => {
     const newPrompt = { name, topPrompt, prompt };
-    savePrompts(prevPrompts => [...prevPrompts, newPrompt]);
+    setSavedPrompts(prevPrompts => {
+      const newPrompts = [...prevPrompts, newPrompt];
+      localStorage.setItem("savedPrompts", JSON.stringify(newPrompts));
+      return newPrompts;
+    });
   };
   
   const deleteSavedPrompt = index => {
-    savePrompts(prevPrompts => {
+    setSavedPrompts(prevPrompts => {
       const newSavedPrompts = [...prevPrompts];
       newSavedPrompts.splice(index, 1);
+      localStorage.setItem("savedPrompts", JSON.stringify(newSavedPrompts));
       return newSavedPrompts;
     });
   };
+
   
   const copySavedPrompt = index => {
     const { topPrompt, prompt } = savedPrompts[index];
