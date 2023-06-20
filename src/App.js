@@ -102,7 +102,7 @@ function App() {
             <option value="POLITICALGPT">PoliticalGPT</option>
             <option value="METHBAKE">Methbake</option>
             <option value="CONSPIRACYGPT">ConspiracyGPT</option>
-            <option value="MONGO TOM">Mongo Tom</option>
+            <option value="MONGOTOM">Mongo Tom</option>
             <option value="RIKA">Rika</option>
           </select>
         </div>
