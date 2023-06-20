@@ -91,6 +91,14 @@ function App() {
     });
   };
 
+  const handleNameChange = (event, index) => {
+    setSavedPrompts(prevPrompts => {
+      const newSavedPrompts = [...prevPrompts];
+      newSavedPrompts[index].name = event.target.value;
+      localStorage.setItem("savedPrompts", JSON.stringify(newSavedPrompts));
+      return newSavedPrompts;
+    });
+  };
   
   const copySavedPrompt = index => {
     const { topPrompt, prompt } = savedPrompts[index];
@@ -128,22 +136,18 @@ function App() {
       </button>
       <div className={`savedPrompts ${savedPromptsVisible ? '' : 'hidden'}`}>
       <ul className="savedPromptsList">
-        {savedPrompts.map(({ name, topPrompt, prompt }, index) => (
-          <li key={index} className="savedPromptItem">
-            <input
-              type="text"
-              value={name}
-              onChange={e => {
-                const newSavedPrompts = [...savedPrompts];
-                newSavedPrompts[index].name = e.target.value;
-                setSavedPrompts(newSavedPrompts);
-              }}
-              className="savedPromptInput"
-            />
-            <button onClick={() => deleteSavedPrompt(index)} className="savedPromptButton">Delete</button>
-            <button onClick={() => copySavedPrompt(index)} className="savedPromptButton">Copy</button>
-          </li>
-        ))}
+      {savedPrompts.map(({ name, topPrompt, prompt }, index) => (
+  <li key={index} className="savedPromptItem">
+    <input
+          type="text"
+          value={name}
+          onChange={e => handleNameChange(e, index)}
+          className="savedPromptInput"
+        />
+          <button onClick={() => deleteSavedPrompt(index)} className="savedPromptButton">Delete</button>
+          <button onClick={() => copySavedPrompt(index)} className="savedPromptButton">Copy</button>
+        </li>
+      ))}
       </ul>
       <button className="saveButton" onClick={() => addSavedPrompt('New prompt', topPrompt, prompt)}>
         Save current prompt
