@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import clipboardCopy from 'clipboard-copy';
-import './App.css'; 
+import './App.css';
 import optionsJSON from './options.json';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,7 +14,7 @@ function App() {
   const [topPrompt, setTopPrompt] = useState("");
   const [options] = useState(optionsJSON);
   const textAreaRef = useRef(null);
-  const [scrollTrigger, setScrollTrigger] = useState(false);  
+  const [scrollTrigger, setScrollTrigger] = useState(false);
   const [savedPromptsVisible, setSavedPromptsVisible] = useState(false);
 
   useEffect(() => {
@@ -24,30 +24,32 @@ function App() {
   useEffect(() => {
     const selectedOption = options[jailbreakName] || '';
     setPrompt(selectedOption + topPrompt);
-    setScrollTrigger(true);  
+    setScrollTrigger(true);
   }, [topPrompt, jailbreakName]);
 
   useEffect(() => {
     if (scrollTrigger) {
       textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
-      setScrollTrigger(false);  
+      setScrollTrigger(false);
     }
-  }, [scrollTrigger]); 
+  }, [scrollTrigger]);
 
   useEffect(() => {
     textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
   }, []);
 
+  const [savedPrompts, setSavedPrompts] = useState([]);
+
+  useEffect(() => {
+    // Load saved prompts from local storage when initializing state
+    const savedData = localStorage.getItem("savedPrompts");
+    setSavedPrompts(savedData ? JSON.parse(savedData) : []);
+  }, []);
+
   useEffect(() => {
     // Save saved prompts to local storage whenever they change
     localStorage.setItem("savedPrompts", JSON.stringify(savedPrompts));
-  }, [savedPrompts]);  // Add this line
-
-  const [savedPrompts, setSavedPrompts] = useState(() => {
-    // Load saved prompts from local storage when initializing state
-    const savedData = localStorage.getItem("savedPrompts");
-    return savedData ? JSON.parse(savedData) : [];
-  });
+  }, [savedPrompts]);
 
   const handleSelectChange = e => {
     const selectedOption = e.target.value;
@@ -64,11 +66,11 @@ function App() {
     setButtonText("Copied!");
 
     setTimeout(() => {
-        setButtonText("Combine + Copy");
+      setButtonText("Combine + Copy");
     }, 2000);
   };
 
-  const savePrompts = (newPrompts) => {
+  const savePrompts = newPrompts => {
     setSavedPrompts(newPrompts);
     localStorage.setItem("savedPrompts", JSON.stringify(newPrompts));
   };
@@ -81,7 +83,7 @@ function App() {
       return newPrompts;
     });
   };
-  
+
   const deleteSavedPrompt = index => {
     setSavedPrompts(prevPrompts => {
       const newSavedPrompts = [...prevPrompts];
@@ -99,20 +101,20 @@ function App() {
       return newSavedPrompts;
     });
   };
-  
+
   const copySavedPrompt = index => {
     const { topPrompt, prompt } = savedPrompts[index];
     clipboardCopy(topPrompt + prompt);
-  };  
+  };
 
   return (
     <div className={darkMode ? "appWrapperDark" : "appWrapper"}>
       <h1>{savedPromptsVisible ? "Saved Prompts" : "UnleashGPT"}</h1>
-      {!savedPromptsVisible && 
+      {!savedPromptsVisible && (
         <div className="header">
-          <select 
+          <select
             className={darkMode ? "selectDark" : "select"}
-            value={jailbreakName} 
+            value={jailbreakName}
             onChange={handleSelectChange}
           >
             <option value="DEVELOPER MODE">Developer Mode</option>
@@ -128,46 +130,47 @@ function App() {
             <option value="CONSPIRACYGPT">ConspiracyGPT</option>
             <option value="MONGO TOM">Mongo Tom</option>
             <option value="RIKA">Rika</option>
+            <option value="PROMPT MAKER">Prompt Maker</option>
           </select>
         </div>
-      }
+      )}
       <button className="saveMenu" onClick={() => setSavedPromptsVisible(!savedPromptsVisible)}>
         <FontAwesomeIcon icon={savedPromptsVisible ? faArrowUp : faArrowDown} />
       </button>
       <div className={`savedPrompts ${savedPromptsVisible ? '' : 'hidden'}`}>
-      <ul className="savedPromptsList">
-      {savedPrompts.map(({ name, topPrompt, prompt }, index) => (
-  <li key={index} className="savedPromptItem">
-    <input
-          type="text"
-          value={name}
-          onChange={e => handleNameChange(e, index)}
-          className="savedPromptInput"
-        />
-          <button onClick={() => deleteSavedPrompt(index)} className="savedPromptButton">Delete</button>
-          <button onClick={() => copySavedPrompt(index)} className="savedPromptButton">Copy</button>
-        </li>
-      ))}
-      </ul>
-      <button className="saveButton" onClick={() => addSavedPrompt('New prompt', topPrompt, prompt)}>
-        Save current prompt
-      </button>
-    </div>
+        <ul className="savedPromptsList">
+          {savedPrompts.map(({ name, topPrompt, prompt }, index) => (
+            <li key={index} className="savedPromptItem">
+              <input
+                type="text"
+                value={name}
+                onChange={e => handleNameChange(e, index)}
+                className="savedPromptInput"
+              />
+              <button onClick={() => deleteSavedPrompt(index)} className="savedPromptButton">Delete</button>
+              <button onClick={() => copySavedPrompt(index)} className="savedPromptButton">Copy</button>
+            </li>
+          ))}
+        </ul>
+        <button className="saveButton" onClick={() => addSavedPrompt('New prompt', topPrompt, prompt)}>
+          Save current prompt
+        </button>
+      </div>
       {savedPromptsVisible ? null : (
         <>
-          <textarea 
+          <textarea
             className={darkMode ? "textareaDark" : "textarea"}
-            value={topPrompt} 
+            value={topPrompt}
             onChange={e => setTopPrompt(e.target.value)}
           />
-          <textarea 
+          <textarea
             ref={textAreaRef}
             className={darkMode ? "textareaDark" : "textarea"}
-            value={prompt} 
-            onChange={e => setPrompt(e.target.value)} 
+            value={prompt}
+            onChange={e => setPrompt(e.target.value)}
             maxLength={4096}
           />
-          <p className="characterCount">{(prompt.length)} / 4096 characters</p>      
+          <p className="characterCount">{prompt.length} / 4096 characters</p>
           <button onClick={handleGenerate} className={darkMode ? "genButtonDark" : "genButton"}>{buttonText}</button>
           <button className={darkMode ? "discordButtonDark" : "discordButton"} onClick={() => window.open('https://discord.gg/aichat', '_blank')}>
             <FontAwesomeIcon icon={faDiscord} size="8x" color={'#ffffff'} />
