@@ -136,7 +136,7 @@ function App() {
                 <h1>Menu</h1>
                 <div className="jailbreakBar">
                     <div className="selectedJailbreakText" onClick={() => setJailbreakListOpen(!jailbreakListOpen)}>
-                        Selected Jailbreak: {jailbreakName}
+                        {jailbreakName}
                     </div>
                     <button className="jbBtn" onClick={() => setJailbreakListOpen(!jailbreakListOpen)}>
                         Close Jailbreak Menu
@@ -161,7 +161,7 @@ function App() {
 
                 <div className="jailbreakBar">
                     <div className="selectedJailbreakText">
-                        Selected Jailbreak: {jailbreakName}
+                        {jailbreakName}
                     </div>
                     <button className="jbBtn" onClick={() => setJailbreakListOpen(!jailbreakListOpen)}>
                       Open Jailbreak Menu
