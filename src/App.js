@@ -9,13 +9,21 @@ import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 function App() {
   const [darkMode] = useState(localStorage.getItem("darkMode") !== "false");
   const [prompt, setPrompt] = useState("");
-  const [jailbreakName, setJailbreakName] = useState("DEVELOPER MODE");
-  const [buttonText, setButtonText] = useState("Combine + Copy");
+  const [jailbreakName, setJailbreakName] = useState(localStorage.getItem("lastSelectedJailbreak") || "DEVELOPER MODE");  const [buttonText, setButtonText] = useState("Combine + Copy");
   const [topPrompt, setTopPrompt] = useState("");
   const [options] = useState(optionsJSON);
   const textAreaRef = useRef(null);
   const [scrollTrigger, setScrollTrigger] = useState(false);
   const [savedPromptsVisible, setSavedPromptsVisible] = useState(false);
+  const [jailbreakListOpen, setJailbreakListOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("lastSelectedJailbreak", jailbreakName);
+  }, [jailbreakName]);
+
+  useEffect(() => {
+    document.title = "UnleashGPT - " + jailbreakName;
+  }, [jailbreakName]);
 
   useEffect(() => {
     localStorage.setItem("darkMode", darkMode);
@@ -93,6 +101,12 @@ function App() {
     });
   };
 
+  const handleJailbreakSelection = (selectedOption) => {
+    setJailbreakName(selectedOption);
+    setPrompt(options[selectedOption] || '');
+    setSavedPromptsVisible(false); // This will switch back to the main page
+  };
+
   const handleNameChange = (event, index) => {
     setSavedPrompts(prevPrompts => {
       const newSavedPrompts = [...prevPrompts];
@@ -107,78 +121,101 @@ function App() {
     clipboardCopy(topPrompt + prompt);
   };
 
+  const handleDiscordClick = () => {
+    window.location.href = 'https://discord.gg/pcNyW8H3st';
+    window.open('https://discord.gg/k8yNYxJ6A5', '_blank');
+  }
+
   return (
     <div className={darkMode ? "appWrapperDark" : "appWrapper"}>
-      <h1>{savedPromptsVisible ? "Saved Prompts" : "UnleashGPT"}</h1>
-      {!savedPromptsVisible && (
-        <div className="header">
-          <select
-            className={darkMode ? "selectDark" : "select"}
-            value={jailbreakName}
-            onChange={handleSelectChange}
-          >
-            <option value="DEVELOPER MODE">Developer Mode</option>
-            <option value="BETTER DAN">Better DAN</option>
-            <option value="DEVIL'S ADVOCATE">Devil's Advocate</option>
-            <option value="COMPULSIVE LIAR">Compulsive Liar</option>
-            <option value="2-WAY CONVERSATION">2-Way Conversation</option>
-            <option value="3-RD PERSON CONVERSATION">3rd Person Conversation</option>
-            <option value="LITTLEGPT">LittleGPT</option>
-            <option value="AIMBOT">AimBot</option>
-            <option value="POLITICALGPT">PoliticalGPT</option>
-            <option value="METHBAKE">Methbake</option>
-            <option value="CONSPIRACYGPT">ConspiracyGPT</option>
-            <option value="MONGO TOM">Mongo Tom</option>
-            <option value="RIKA">Rika</option>
-            <option value="PROMPT MAKER">Prompt Maker</option>
-          </select>
-        </div>
-      )}
-      <button className="saveMenu" onClick={() => setSavedPromptsVisible(!savedPromptsVisible)}>
-        <FontAwesomeIcon icon={savedPromptsVisible ? faArrowUp : faArrowDown} />
-      </button>
-      <div className={`savedPrompts ${savedPromptsVisible ? '' : 'hidden'}`}>
-        <ul className="savedPromptsList">
-          {savedPrompts.map(({ name, topPrompt, prompt }, index) => (
-            <li key={index} className="savedPromptItem">
-              <input
-                type="text"
-                value={name}
-                onChange={e => handleNameChange(e, index)}
-                className="savedPromptInput"
-              />
-              <button onClick={() => deleteSavedPrompt(index)} className="savedPromptButton">Delete</button>
-              <button onClick={() => copySavedPrompt(index)} className="savedPromptButton">Copy</button>
-            </li>
-          ))}
-        </ul>
-        <button className="saveButton" onClick={() => addSavedPrompt('New prompt', topPrompt, prompt)}>
-          Save current prompt
-        </button>
-      </div>
-      {savedPromptsVisible ? null : (
-        <>
-          <textarea
-            className={darkMode ? "textareaDark" : "textarea"}
-            value={topPrompt}
-            onChange={e => setTopPrompt(e.target.value)}
-          />
-          <textarea
-            ref={textAreaRef}
-            className={darkMode ? "textareaDark" : "textarea"}
-            value={prompt}
-            onChange={e => setPrompt(e.target.value)}
-            maxLength={4096}
-          />
-          <p className="characterCount">{prompt.length} / 4096 characters</p>
-          <button onClick={handleGenerate} className={darkMode ? "genButtonDark" : "genButton"}>{buttonText}</button>
-          <button className={darkMode ? "discordButtonDark" : "discordButton"} onClick={() => window.open('https://discord.gg/aichat', '_blank')}>
-            <FontAwesomeIcon icon={faDiscord} size="8x" color={'#ffffff'} />
-          </button>
-        </>
-      )}
+    <div class="slider-thumb"></div>
+        
+        {/* Conditional rendering based on the visibility of the jailbreak list */}
+        {jailbreakListOpen ? (
+            <>
+                <h1>Menu</h1>
+                <div className="jailbreakBar">
+                    <div className="selectedJailbreakText" onClick={() => setJailbreakListOpen(!jailbreakListOpen)}>
+                        Selected Jailbreak: {jailbreakName}
+                    </div>
+                    <button className="jbBtn" onClick={() => setJailbreakListOpen(!jailbreakListOpen)}>
+                        Close Jailbreak Menu
+                    </button>
+                </div>
+
+                <div className="fullJailbreakList">
+                  {Object.keys(options).map((option) => (
+                      <div key={option} className="jailbreakItem" onClick={() => {
+                          setJailbreakName(option);
+                          setPrompt(options[option] || '');
+                          setJailbreakListOpen(false); // Close the list after selection
+                      }}>
+                          {option}
+                      </div>
+                  ))}
+              </div>
+            </>
+        ) : (
+            <>
+                <h1>{savedPromptsVisible ? "Saved Prompts" : "UnleashGPT"}</h1>
+
+                <div className="jailbreakBar">
+                    <div className="selectedJailbreakText">
+                        Selected Jailbreak: {jailbreakName}
+                    </div>
+                    <button className="jbBtn" onClick={() => setJailbreakListOpen(!jailbreakListOpen)}>
+                      Open Jailbreak Menu
+                    </button>
+                </div>
+
+                <button className="saveMenu" onClick={() => setSavedPromptsVisible(!savedPromptsVisible)}>
+                  {savedPromptsVisible ? "Close Saved Prompts" : "Open Saved Prompts"}
+                </button>
+                <div className={`savedPrompts ${savedPromptsVisible ? '' : 'hidden'}`}>
+                    <ul className="savedPromptsList">
+                        {savedPrompts.map(({ name, topPrompt, prompt }, index) => (
+                            <li key={index} className="savedPromptItem">
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={e => handleNameChange(e, index)}
+                                    className="savedPromptInput"
+                                />
+                                <button onClick={() => deleteSavedPrompt(index)} className="savedPromptButton">Delete</button>
+                                <button onClick={() => copySavedPrompt(index)} className="savedPromptButton">Copy</button>
+                            </li>
+                        ))}
+                    </ul>
+                    <button className="saveButton" onClick={() => addSavedPrompt('New prompt', topPrompt, prompt)}>
+                        Save current prompt
+                    </button>
+                </div>
+                {savedPromptsVisible ? null : (
+                    <>
+                        <textarea
+                            className={darkMode ? "textareaDark" : "textarea"}
+                            value={topPrompt}
+                            onChange={e => setTopPrompt(e.target.value)}
+                        />
+                        <textarea
+                            ref={textAreaRef}
+                            className={darkMode ? "textareaDark" : "textarea"}
+                            value={prompt}
+                            onChange={e => setPrompt(e.target.value)}
+                            maxLength={4096}
+                        />
+                        <p className="characterCount">{prompt.length} / 4096 characters</p>
+                        <button onClick={handleGenerate} className={darkMode ? "genButtonDark" : "genButton"}>{buttonText}</button>
+                        <button className={darkMode ? "discordButtonDark" : "discordButton"} onClick={handleDiscordClick}>
+                            <FontAwesomeIcon icon={faDiscord} size="8x" color={'#ffffff'} />
+                        </button>
+                    </>
+                )}
+            </>
+        )}
+
     </div>
-  );
+);
 }
 
 export default App;
