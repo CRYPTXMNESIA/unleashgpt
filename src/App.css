@@ -235,11 +235,6 @@ backdrop-filter: blur(10px);
   padding: 10px 0;  /* This is just an example, adjust the padding as needed */
 }
 
-/* Add spacing to the last child only */
-.jailbreakItem:last-child {
-  margin-bottom: 20px;  /* Adjust as per your requirements */
-}
-
 .jbBtn {
   animation: fadeInSlideUp 1.2s forwards;
   width: 200px;
