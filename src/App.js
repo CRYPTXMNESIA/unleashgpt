@@ -4,7 +4,7 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import clipboardCopy from 'clipboard-copy';
 import './App.css';
 import optionsJSON from './options.json';
-import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [darkMode] = useState(localStorage.getItem("darkMode") !== "false");
@@ -129,6 +129,7 @@ function App() {
   return (
     <div className={darkMode ? "appWrapperDark" : "appWrapper"}>
     <div class="slider-thumb"></div>
+    <Analytics />
         
         {/* Conditional rendering based on the visibility of the jailbreak list */}
         {jailbreakListOpen ? (
