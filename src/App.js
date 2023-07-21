@@ -9,7 +9,7 @@ import { Analytics } from '@vercel/analytics/react';
 function App() {
   const [darkMode] = useState(localStorage.getItem("darkMode") !== "false");
   const [prompt, setPrompt] = useState("");
-  const [jailbreakName, setJailbreakName] = useState(localStorage.getItem("lastSelectedJailbreak") || "DEVELOPER MODE");  const [buttonText, setButtonText] = useState("Combine + Copy");
+  const [jailbreakName, setJailbreakName] = useState(localStorage.getItem("lastSelectedJailbreak") || "Bagley");  const [buttonText, setButtonText] = useState("Combine + Copy");
   const [topPrompt, setTopPrompt] = useState("");
   const [options] = useState(optionsJSON);
   const textAreaRef = useRef(null);
