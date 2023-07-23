@@ -6,6 +6,7 @@
   opacity: 0; /* Ensure elements are initially hidden */
   animation: fadeInSlideUp 1.2s forwards;
   font-family: 'Open Sans', sans-serif;
+  list-style-type: none;
 }
 
 ul, li {
