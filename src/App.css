@@ -8,6 +8,12 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+ul, li {
+  margin: 0;
+  padding: 0;
+  line-height: 40px;
+}
+
 /* Add to your existing CSS */
 .viewTransition {
   transition: opacity 0.5s ease-in-out !important;
