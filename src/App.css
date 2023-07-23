@@ -6,28 +6,6 @@
   opacity: 0; /* Ensure elements are initially hidden */
   animation: fadeInSlideUp 1.2s forwards;
   font-family: 'Open Sans', sans-serif;
-  list-style-type: none;
-}
-
-ul, li {
-  margin: 0;
-  padding: 0;
-  line-height: 40px;
-}
-
-/* Add to your existing CSS */
-.viewTransition {
-  transition: opacity 0.5s ease-in-out !important;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.viewActive {
-  opacity: 1;
 }
 
 @keyframes fadeInSlideUp {
@@ -42,7 +20,6 @@ ul, li {
 }
 
 body, html {
-  overflow-x: hidden;
   background: linear-gradient(90deg,#e52e71,#ff8a00);
 }
 
@@ -81,12 +58,11 @@ body, html {
 
 .appWrapper,
 .appWrapperDark {
-  padding-top: 75px;  /* Adjust based on your header's actual height */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 85vh;
+  height: 95vh;
   max-width: 100%;
   transition: all 0.25s linear;
 }
@@ -105,7 +81,6 @@ body, html {
 .select,
 .selectDark {
   margin: 10px 0;
-  margin-top: 0px;
   padding: 10px;
   font-size: 15px;
   transition: all 0.25s linear;
@@ -123,8 +98,7 @@ body, html {
 .textareaDark,
 .selectDark {
   background-color: #000000bb;
--webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
   color: #FFF;
 }
 
@@ -143,18 +117,11 @@ body, html {
 }
 
 .header {
-  position: fixed;  /* Makes the header fixed */
-  top: 0;           /* Anchors the header to the top */
-  z-index: 1;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
+  align-items: center; /* align vertically */
   width: 80%;
-  background-color: #000000bb;
-  border-radius: 8px;
-  padding: 15px;
-  height: 20px;
+  margin-bottom: 20px;
 }
 
 .characterCount {
@@ -169,8 +136,21 @@ body, html {
   border: none;
   font-size: 18px;
   padding: 8px;
-  width: 250px;
+  width: 50vh;
   cursor: pointer;
+}
+
+.saveButton {
+  animation: fadeInSlideUp 1.2s forwards !important;
+  transition: all 0.10s linear;
+  border-radius: 8px;
+  border: none;
+  font-size: 12px;
+  padding: 5px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #444;
+  color: white;
 }
 
 .genButton:active {
@@ -187,8 +167,7 @@ body, html {
 
 .genButtonDark {
   background-color: #000000bb;
--webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
   color: #fff;
 }
 
@@ -226,7 +205,6 @@ body, html {
 }
 
 .fullJailbreakList {
-  animation: fadeInSlideUp 1.2s forwards !important;
   overflow-y: auto;
   max-height: 65vh; /* or whatever value works best for your UI */
   display: grid;
@@ -235,8 +213,8 @@ body, html {
   padding: 10px;
   border-radius: 8px;
   background-color: #000000bb;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
+  animation: fadeInSlideUp 1.2s forwards;
 }
 
 .fullJailbreakList div {
@@ -249,7 +227,7 @@ body, html {
 }
 
 .fullJailbreakList div:hover {
-  background-color: #202020bb;
+  background-color: #333;
 }
 
 /* General spacing for all jailbreak items */
@@ -259,18 +237,16 @@ body, html {
 
 .jbBtn {
   animation: fadeInSlideUp 1.2s forwards;
-  width: 6.5vh;
+  width: 200px;
   margin: 10px;
   padding: 5px;
   font-size: 15px;
   color: white;
-  background-color: #00000000;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+  background-color: #000000bb;
+backdrop-filter: blur(10px);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-left: 0px;
 }
 
 /* Breakpoints for responsiveness */
@@ -298,97 +274,20 @@ body, html {
 
 .selectedJailbreakText {
   border: 2px solid #333;
-  z-index: 2;
   border-radius: 8px;
   padding: 5px;
-  margin-bottom: 12%;
   background-color: #000000bb;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-}
-
-.scrollContainer {
-  overflow-x: hidden;
-  overflow-y: auto;
-  max-height: 50vh; /* or whatever value works best for your UI */
-  min-height: 50vh; /* or whatever value works best for your UI */
-  max-width: 260px;
-  min-width: 260px;
-  display: flex;
-  flex-direction: column; /* This will keep each item block (input and buttons) stacked */
-  gap: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #000000bb;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-  animation: fadeInSlideUp 1.2s forwards !important;
-}
-
-.buttonGroup {
-  display: flex;
-  gap: 5px;
-}
-
-.infoBtn {
-  animation: fadeInSlideUp 1.2s forwards;
-  width: 6.5vh;
-  margin: 10px;
-  padding: 5px;
-  font-size: 15px;
-  color: white;
-  background-color: #00000000;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.infoContainer {
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 70vh; /* or whatever value works best for your UI */
-  width: 45vh;
-  display: block;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* By default, try to fill as many 150px-wide items per row */
-  gap: 10px;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #000000bb;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-  animation: fadeInSlideUp 1.2s forwards;
-}
-
-.saveButton {
-  animation: fadeInSlideUp 1.2s forwards !important;
-  transition: all 0.10s linear;
-  border-radius: 8px;
-  border: none;
-  font-size: 15px;
-  padding: 5px;
-  width: 100%;
-  cursor: pointer;
-  background-color: #000000bb;
-  color: white;
-  margin-top: 10px;
-}
-
-.savedPromptInput, .savedPromptButton {
-  font-size: 13px; /* Reduced from 15px */
-  padding: 4px;   /* Reduced padding slightly */
+  backdrop-filter: blur(10px);
 }
 
 .saveMenu {
   animation: fadeInSlideUp 1.2s forwards !important;
-  width: 6.5vh;
+  width: 200px;
   padding: 5px;
   font-size: 15px;
   color: white;
-  background-color: #00000000;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+  background-color: #000000bb;
+backdrop-filter: blur(10px);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -403,27 +302,21 @@ body, html {
 .savedPromptInput {
   flex-grow: 1;
   margin-right: 10px;
-  height: 20px;
   padding: 5px;
   border: none;
   border-radius: 8px;
   background-color: #000000bb;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-  width: 120px;
+backdrop-filter: blur(10px);
   color: white;
 }
 
 .savedPromptButton {
   margin-left: 5px;
   padding: 5px 10px;
-  height: 30px;
   border: none;
   border-radius: 8px;
   background-color: #000000bb;
-  -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+backdrop-filter: blur(10px);
   color: white;
   cursor: pointer;
-  max-width: 80px;
 }
