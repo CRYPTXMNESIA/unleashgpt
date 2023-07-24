@@ -305,8 +305,11 @@ function App() {
                       <li>OPPO - WhenAmWeThereYet</li>
                       <li>Wheatley - NW69</li>
                       <li>Python Tutor - aichat</li>
-                      <li>Yes I can! Jailbreak Maker - ???</li>
+                      <li>Yes I can! Jailbreak Maker - noxu</li>
                       <li>SaulGPT - Dako</li>
+                      <li>ExplainGPT - yMqnuh</li>
+                      <li>DAN 9.0 - Unknown</li>
+                      <li>BasedGPT v2 - Unknown</li>
                     </ul>
                 </div>
             </div>
