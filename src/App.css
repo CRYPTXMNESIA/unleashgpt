@@ -359,6 +359,7 @@ body, html {
   animation: fadeInSlideUp 1.2s forwards;
   width: 6.5vh;
   margin: 10px;
+  margin-right: 0px;
   padding: 5px;
   font-size: 15px;
   color: white;
