@@ -224,8 +224,8 @@ img {
 }
 
 .container .img-preview .img-preview-container {
-    width: 20vh;
-    height: 20vh;
+    width: 15vh;
+    height: 15vh;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     z-index: 1;
 }
