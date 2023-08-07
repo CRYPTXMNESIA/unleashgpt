@@ -130,7 +130,6 @@ ul {
     display: block;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* By default, try to fill as many 150px-wide items per row */
     gap: 10px;
-    border-radius: 8px;
     background-color: #000000bb;
     -webkit-backdrop-filter: blur(10px);
               backdrop-filter: blur(10px);
@@ -147,7 +146,6 @@ ul {
     display: flex;
     flex-direction: column; /* This will keep each item block (input and buttons) stacked */
     gap: 10px;
-    border-radius: 8px;
     background-color: #000000bb;
     -webkit-backdrop-filter: blur(10px);
               backdrop-filter: blur(10px);
