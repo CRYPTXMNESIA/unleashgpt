@@ -23,16 +23,17 @@ document.addEventListener('mouseup', function () {
     }, 500); // Duration of the highlight effect
   });
 
-imgNames.forEach((imgName) => {
-    imgName.addEventListener("mouseover", () => {
-        const dataImg = imgName.getAttribute("data-img");
-        imgPreviewContainer.innerHTML = `
-        <div class="logo-container">
-            <img src="./assets/logo3.png" alt="" />
-            <img src="./assets/logo3.png" class="top-logo" alt="" />
-        </div>
-        `;
-    });
+  imgNames.forEach((imgName) => {
+    // Commenting out or removing the mouseover event listener
+    // imgName.addEventListener("mouseover", () => {
+    //     const dataImg = imgName.getAttribute("data-img");
+    //     imgPreviewContainer.innerHTML = `
+    //     <div class="logo-container">
+    //         <img src="./assets/logo3.png" alt="" />
+    //         <img src="./assets/logo3.png" class="top-logo" alt="" />
+    //     </div>
+    //     `;
+    // });
 
     imgName.addEventListener("click", () => {
         const dataImg = imgName.getAttribute("data-img");
