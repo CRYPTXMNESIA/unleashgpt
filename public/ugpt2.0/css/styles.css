@@ -3,6 +3,13 @@
     src: url('NeueMontreal-Medium.otf') format('opentype'); /* Path to your custom OTF file */
 }
 
+@font-face {
+    font-family: 'CustomFont2'; /* Name for your custom font */
+    src: url('NeueMontreal-Regular.otf') format('opentype'); /* Path to your custom OTF file */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -417,6 +424,8 @@ img {
     cursor: pointer;
     border-radius: 5px;
     padding: 10px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 16px;
 }
 
 .img-modal-name .modal-name {
