@@ -6,16 +6,43 @@ const modalName = document.querySelector(".modal-name");
 const tl = gsap.timeline({ paused: true });
 const modalText = document.querySelector("#modal-text");
 
+document.addEventListener('mouseup', function () {
+    const selection = window.getSelection();
+    if (selection.rangeCount === 0) return;
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    const highlightOverlay = document.createElement('div');
+    highlightOverlay.className = 'highlight-overlay';
+    highlightOverlay.style.left = rect.left + window.pageXOffset + 'px';
+    highlightOverlay.style.top = rect.top + window.pageYOffset + 'px';
+    highlightOverlay.style.width = rect.width + 'px';
+    highlightOverlay.style.height = rect.height + 'px';
+    document.body.appendChild(highlightOverlay);
+    setTimeout(() => {
+      document.body.removeChild(highlightOverlay);
+    }, 500); // Duration of the highlight effect
+  });
+
 imgNames.forEach((imgName) => {
     imgName.addEventListener("mouseover", () => {
         const dataImg = imgName.getAttribute("data-img");
-        imgPreviewContainer.innerHTML = `<img src="./assets/logo3.png" alt="" />`;
+        imgPreviewContainer.innerHTML = `
+        <div class="logo-container">
+            <img src="./assets/logo3.png" alt="" />
+            <img src="./assets/logo3.png" class="top-logo" alt="" />
+        </div>
+        `;
     });
 
     imgName.addEventListener("click", () => {
         const dataImg = imgName.getAttribute("data-img");
         const specificText = imgName.getAttribute("data-text");
-        imgViewContainer.innerHTML = `<img src="./assets/logo3.png" alt="" />`;
+        imgViewContainer.innerHTML = `
+        <div class="logo-container">
+            <img src="./assets/logo3.png" alt="" />
+            <img src="./assets/logo3.png" class="top-logo" alt="" />
+        </div>
+        `;
         modalText.value = specificText;  // Update the textarea
         tl.reversed(!tl.reversed());
     });
