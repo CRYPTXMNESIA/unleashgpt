@@ -45,8 +45,8 @@
 
   .logo-container {
     position: relative;
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+    width: 400px; /* Adjust as needed */
+    height: 500px; /* Adjust as needed */
     z-index: 2;
   }
   
@@ -345,12 +345,15 @@ img {
     opacity: 0;
 }
 
-.img-modal .img-view img {
-    width: 0%;
-    height: 0%;
-    object-fit: cover; /* Optional, to maintain the aspect ratio */
+.img-modal .img-view {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 500px;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
 }
-
 
 .img-modal .close-btn {
     position: absolute;

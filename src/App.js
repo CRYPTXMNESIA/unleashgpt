@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 const App = () => {
   const [iframeHeight, setIframeHeight] = useState(window.innerHeight);
@@ -25,13 +26,15 @@ const App = () => {
   };
 
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-      <iframe
-        title="ugpt2.0"
-        src="./ugpt2.0/index.html"
-        style={iframeStyle}
-      />
-    </div>
+    <>
+    <Analytics />
+      <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+        <iframe
+          title="ugpt2.0"
+          src="./ugpt2.0/index.html"
+          style={iframeStyle} />
+      </div>
+    </>
   );
 };
 
