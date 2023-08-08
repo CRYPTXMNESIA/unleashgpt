@@ -41,7 +41,6 @@ document.addEventListener('mouseup', function () {
         imgViewContainer.innerHTML = `
         <div class="logo-container">
             <img src="./assets/logo3.png" alt="" />
-            <img src="./assets/logo3.png" class="top-logo" alt="" />
         </div>
         `;
         modalText.value = specificText;  // Update the textarea
